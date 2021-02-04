@@ -8,6 +8,21 @@ if($_SESSION['status'] != "login"){
     header('location:../index.php');
 }
 
+$result = mysqli_query($connect , "SELECT * FROM users WHERE id='$_GET[id]'");
+$user = $result->fetch_assoc();
+
+if(isset($_POST['edit-user'])){
+    
+    $role = $_POST['role_id'];
+    $name = $_POST['name_user'];
+
+    mysqli_query($connect , "UPDATE users SET name_users='$name' , id_role='$role' WHERE id='$_GET[id]'");
+    echo "
+    <script>alert('Edit User Berhasil')
+    window.location='http://localhost/endcomic/wp-book/users.php'
+    </script>";
+}
+
 
 ?>
 
@@ -22,7 +37,7 @@ if($_SESSION['status'] != "login"){
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Dashboard</title>
+    <title>Edit User</title>
 
     <!-- Custom fonts for this template-->
     <link href="asset/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -60,7 +75,6 @@ if($_SESSION['status'] != "login"){
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
-
             <li class="nav-item">
                 <a class="nav-link" href="users.php">
                     <i class="fas fa-fw fa-user"></i>
@@ -146,12 +160,31 @@ if($_SESSION['status'] != "login"){
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Dashboard</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Update Book</h1>
 
-                    <div class="welcome text-center text-primary">
-                    <h2>Welcome , <?php echo $_SESSION['email']?></h2>
+         
+                    <form method="POST">
+                            <div class="form-group">
+                            <label for="exampleInputEmail1">Email</label>
+                            <input type="email" class="form-control" value="<?php echo $user['email']?>" readonly required  >
+                            </div>
+                            <div class="form-group">
+                            <label for="exampleInputEmail1">Role Id</label>
+                            <input type="number" class="form-control" value="<?php echo $user['id_role']?>"  required name="role_id" >
+                            </div>
+                            <div class="form-group">
+                            <label for="exampleInputEmail1">Name</label>
+                            <input type="dates" class="form-control" value="<?php echo $user['name_users']?>" required name="name_user" >
+                            </div>
+                            <div class="book-footer text-center">
+                            <a href="users.php" class="btn btn-secondary" >Back</a>
+                            <button type="submit" class="btn btn-primary" name="edit-user">Save</button>
+                            </div>
+                       
+                        
+                        </form>
+             
 
-                    </div>
 
                 </div>
                 <!-- /.container-fluid -->

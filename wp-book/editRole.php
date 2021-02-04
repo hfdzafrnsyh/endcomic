@@ -8,6 +8,20 @@ if($_SESSION['status'] != "login"){
     header('location:../index.php');
 }
 
+$result = mysqli_query($connect , "SELECT * FROM role_users WHERE id='$_GET[id]'");
+$roleUser = $result->fetch_assoc();
+
+if(isset($_POST['edit-role'])){
+    
+    $roleName = $_POST['role_name'];
+
+    mysqli_query($connect , "UPDATE role_users SET name_role='$roleName' WHERE id='$_GET[id]'");
+    echo "
+    <script>alert('Edit Role Berhasil')
+    window.location='http://localhost/endcomic/wp-book/roleUser.php'
+    </script>";
+}
+
 
 ?>
 
@@ -22,7 +36,7 @@ if($_SESSION['status'] != "login"){
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Dashboard</title>
+    <title>Edit User</title>
 
     <!-- Custom fonts for this template-->
     <link href="asset/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -60,7 +74,6 @@ if($_SESSION['status'] != "login"){
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
-
             <li class="nav-item">
                 <a class="nav-link" href="users.php">
                     <i class="fas fa-fw fa-user"></i>
@@ -146,12 +159,28 @@ if($_SESSION['status'] != "login"){
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Dashboard</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Update Role</h1>
 
-                    <div class="welcome text-center text-primary">
-                    <h2>Welcome , <?php echo $_SESSION['email']?></h2>
+         
+                    <form method="POST">
+                            <div class="form-group">
+                       
+                            <div class="form-group">
+                            <label for="exampleInputEmail1">Role Id</label>
+                            <input type="number" class="form-control" value="<?php echo $roleUser['id']?>"  required  >
+                            </div>
+                            <label for="exampleInputEmail1">Role Name</label>
+                            <input type="text" class="form-control" value="<?php echo $roleUser['name_role']?>" required name="role_name"  >
+                            </div>
+                            <div class="book-footer text-center">
+                            <a href="roleUser.php" class="btn btn-secondary" >Back</a>
+                            <button type="submit" class="btn btn-primary" name="edit-role">Save</button>
+                            </div>
+                       
+                        
+                        </form>
+             
 
-                    </div>
 
                 </div>
                 <!-- /.container-fluid -->

@@ -71,6 +71,16 @@ if(isset($_POST['insert-category'])){
                     <span>Dashboard</span></a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="users.php">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>User</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="roleUser.php">
+                    <i class="fas fa-fw fa-level-up-alt"></i>
+                    <span>Role</span></a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="books.php">
                     <i class="fas fa-fw fa-book"></i>
                     <span>Books</span></a>

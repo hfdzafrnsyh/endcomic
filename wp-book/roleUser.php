@@ -22,7 +22,7 @@ if($_SESSION['status'] != "login"){
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Dashboard</title>
+    <title>Role User</title>
 
     <!-- Custom fonts for this template-->
     <link href="asset/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -146,10 +146,41 @@ if($_SESSION['status'] != "login"){
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Dashboard</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Role</h1>
 
                     <div class="welcome text-center text-primary">
-                    <h2>Welcome , <?php echo $_SESSION['email']?></h2>
+                    <table class="table table-striped table-dark">
+                                    <thead>
+                                        <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Id Role</th>
+                                        <th scope="col">Role Name</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php 
+                                    require_once('config.php');
+
+                                    $result = mysqli_query($connect , "SELECT * FROM role_users");
+                                    $i=1;
+                                    while($roleUser = mysqli_fetch_array($result)){            
+                                      ?>
+                                        <tr>
+                                        <th scope="row"><?php echo $i++?></th>
+                                        <td><?php echo $roleUser['id']?></td>
+                                        <td><?php echo $roleUser['name_role']?></td>
+                                      
+                                        <td>
+                                        <a href="editRole.php?id=<?php echo $roleUser['id']?>" class="btn btn-warning btn-circle"><i class="fas fa-edit"></i></a>
+                                        </td>
+                                        </tr>
+                                        <?php } ?>
+                                    </tbody>
+
+                                 
+                                    </table>
+                    
+                    
 
                     </div>
 
